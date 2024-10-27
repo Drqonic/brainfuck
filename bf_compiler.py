@@ -18,8 +18,6 @@ def main():
 	filename = sys.argv[1]
 
 	output_code = [
-		"section .data",
-		"	buffer db 0",
 		"section .bss",
 		"	cells resb 30000",
 		"section .text",
@@ -54,11 +52,9 @@ def main():
 				output_code.append(f"	sub byte [rdi], {count}")
 			elif character == ".":
 				output_code.append("	push rdi")
-				output_code.append("	mov dil, [rdi]")
-				output_code.append("	mov [buffer], dil")
 				output_code.append("	mov rax, 1")
+				output_code.append("	mov rsi, rdi")
 				output_code.append("	mov rdi, 1")
-				output_code.append("	mov rsi, buffer")
 				output_code.append("	mov rdx, 1")
 				output_code.append("	syscall")
 				output_code.append("	pop rdi")
